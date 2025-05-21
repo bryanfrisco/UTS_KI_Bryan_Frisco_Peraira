@@ -17,7 +17,6 @@ public function store(StoreStudentRequest $request)
 {
     Student::create($request->validated());
 }
-________________________________________
 🔐 2. Enkripsi Data Sensitif
 Tujuan: Melindungi data yang disimpan di database
 📌 Contoh:
@@ -27,9 +26,9 @@ $encryptedNama = Crypt::encryptString($request->nama);
 $decryptedNama = Crypt::decryptString($encryptedNama);
 Atau gunakan cast otomatis di model:
 protected $casts = [
-    'nama' => 'encrypted',
+ 'nama' => 'encrypted',
 ];
-________________________________________
+
 👤 3. Autentikasi & Hak Akses (Authorization)
 Tujuan: Membedakan akses user admin/guru/siswa
 📌 Implementasi:
@@ -40,7 +39,7 @@ if (auth()->user()->role !== 'admin') {
     abort(403);
 }
 •	Daftarkan di Kernel.php dan pasang di route Filament Panel.
-________________________________________
+
 🧾 4. Lindungi File .env dan Git
 Tujuan: Jangan upload file sensitif seperti .env ke GitHub
 📌 Langkah:
@@ -50,20 +49,20 @@ Tujuan: Jangan upload file sensitif seperti .env ke GitHub
 /node_modules
 •	Jika sudah pernah ter-push, hapus dengan:
 git rm --cached .env
-________________________________________
+
 💾 5. Gunakan HTTPS (SSL)
 Tujuan: Enkripsi data saat dikirim antar client-server
 📌 Langkah:
 •	Saat live deployment, gunakan Let's Encrypt atau SSL dari hosting
 •	Set APP_URL=https://domainanda.com di .env
-________________________________________
+
 🛡️ 6. Aktifkan CSRF Protection
 Tujuan: Mencegah serangan CSRF (Cross Site Request Forgery)
 📌 Laravel sudah mengaktifkan CSRF di semua form:
 <form method="POST">
   @csrf
 </form>
-________________________________________
+
 📋 7. Audit Log Akses Data
 Tujuan: Lacak siapa mengakses/mengubah data murid
 📌 Install package:
@@ -78,12 +77,12 @@ class Student extends Model
     protected static $logAttributes = ['nim', 'nama', 'fakultas'];
     protected static $logName = 'student';
 }
-________________________________________
+
 ☁️ 8. Backup Database Rutin
 Tujuan: Jika data hilang atau corrupt, bisa dikembalikan
 📌 Gunakan Laravel Backup (Spatie):
 composer require spatie/laravel-backup
-________________________________________
+
 🔚 Penutup
 Langkah-langkah ini akan memberikan keamanan berlapis terhadap data murid, baik saat input, penyimpanan, maupun akses. Pastikan juga Anda:
 •	Update sistem & dependensi secara rutin
